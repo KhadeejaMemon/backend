@@ -4,9 +4,15 @@ const verifyToken=require("../middleware/authMiddleware")
 const router=express.Router();
 
 //get all skills
-router.get("/",async(req,res)=>{
-const skills=await Skill.find();
-res.json(skills)
+router.get("/", async (req, res) => {
+  try {
+    const skills = await Skill.find();
+    res.json(skills);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
 });
 
 //post skill

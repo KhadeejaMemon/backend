@@ -29,26 +29,29 @@ app.use("/api/contacts",contactRoutes)
 // }).then(()=>console.log("mongodb connection successfull")).catch((err)=>{
 // console.log(err)
 // });
+let isConnected = false;
 
-let isConnected=false;
-async function connectToMongoDB(){
-  try{
-await mongoose.connect(process.env.MONGO_URL,{
- });
- isConnected=true;
- console.log("mongodb connection successfull");
 
-  }catch(error){
-console.log("error connecting to mongodb:",error)
+
+ async function connectToMongoDB() {
+  if (isConnected) return;
+
+  await mongoose.connect(process.env.MONGO_URL);
+
+  isConnected = true;
+
+  console.log("MongoDB Connected");
+}
+
+  
+app.use(async (req, res, next) => {
+  try {
+    await connectToMongoDB();
+    next();
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Database connection failed" });
   }
-}
-
-
-app.use((req,res,next)=>{
-if(!isConnected){
-  connectToMongoDB();
-}
-next();
 });
 app.get("/",(req,res)=>{
 res.send("portfolio backend running")
