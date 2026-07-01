@@ -11,7 +11,13 @@ const contactRoutes=require("./routes/contactRoutes")
 dotenv.config()
 const app=express();
 const cors = require('cors')
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://frontend-smoky-rho-67.vercel.app/"
+  ],
+  credentials: true
+}));
 require("dotenv").config()
 
 
