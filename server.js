@@ -20,7 +20,7 @@ let isConnected = false;
 async function connectToMongoDB() {
   if (isConnected) return;
 
-  await mongoose.connect(process.env.MONGO_URI);
+  await mongoose.connect(process.env.MONGO_URL);
 
   isConnected = true;
   console.log("MongoDB Connected");
