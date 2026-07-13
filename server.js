@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const path = require("path");
-const dns = require("dns");
-dns.setServers(["8.8.8.8", "1.1.1.1"]);
+// const dns = require("dns");
+// dns.setServers(["8.8.8.8", "1.1.1.1"]);
 dotenv.config();
 
 const app = express();
